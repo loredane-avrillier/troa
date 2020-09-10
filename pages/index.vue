@@ -31,9 +31,13 @@
           {{ beers }}
     </div> -->
 
-    <ul>
+    <ul v-if="beers">
       <li v-for="beer of beers" :key="beer.id">
         <n-link :to="`/beers/${beer.id}`">{{ beer.name }}</n-link>
+        <p>{{ beer.tagline }}</p>
+        <p>{{ beer.first_brewed }}</p>
+
+         <img :src="beer.image_url" :alt="beer.name">
       </li>
     </ul>
   </div>
