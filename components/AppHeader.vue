@@ -19,7 +19,7 @@ export default {
   justify-content: space-between;
 }
 nav {
-  box-shadow: 0px 1px 1px #808080;
+  border-bottom: 1px solid lightgray;
   .navbar-brand a {
     color: #000000;
     font-family: "Druk Cond";

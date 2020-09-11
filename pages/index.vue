@@ -13,6 +13,7 @@
                 <button class="btn-see-more" type="button">SEE MORE</button>
               </div>
             </div>
+            <!-- Pagination à la fin du BEERS jaune en bg ? -->
 
             <img :src="beer.image_url" :alt="beer.name" />
           </li>
@@ -21,14 +22,17 @@
 
       <!-- Découper en 2 composants list + modal au click bouteille passe id et infos au modal component -->
     </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import AppHeader from "../components/AppHeader.vue";
+import AppFooter from "../components/AppFooter.vue";
 export default {
   components: {
     AppHeader,
+    AppFooter,
   },
   async asyncData({ $axios, params, query, error }) {
     let beers = await $axios.$get("https://api.punkapi.com/v2/beers");
@@ -41,6 +45,7 @@ export default {
 <style lang="scss">
 .beers {
   position: relative;
+  overflow: hidden;
 
   img {
     max-height: 700px;
@@ -48,10 +53,16 @@ export default {
   }
   ul {
     list-style: none;
+    padding: 0;
+  }
+  ul li:not(:first-child) {
+    margin-top: -20%;
   }
   ul li {
     display: flex;
-    margin: 2em auto;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
     .beer-details {
       display: flex;
       flex-direction: column;
@@ -102,12 +113,37 @@ export default {
   color: #ffcf00;
   font-family: "Druk-Wide-Super";
   font-size: 884px;
-  top: 0;
+  top: -5%;
   right: 0;
   left: 0;
   z-index: -1;
   letter-spacing: 0;
-  line-height: 1157px;
-  height: 1131px;
+  max-width: 100%;
 }
+@media (max-width: 768px) {
+  .beers::after {
+    display: none;
+  }
+  .beers {
+    ul li {
+      margin-top: 0;
+    }
+    ul li:nth-child(even),
+    ul li:nth-child(odd) {
+      flex-flow: column-reverse;
+      justify-content: center;
+      background-color: #ffcf00;
+      margin-bottom: 5em;
+      .beer-details {
+        text-align: center;
+        padding: 2em 0;
+      }
+      img {
+        align-self: center;
+      }
+    }
+  }
+}
+/*  line-height: 1157px;
+  height: 1131px; */
 </style>
