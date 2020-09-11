@@ -25,7 +25,9 @@ nav {
     font-family: "Druk Cond";
     font-size: 80px;
     letter-spacing: 0;
-    line-height: 89px;
+    &:hover {
+        text-decoration: none;
+    }
   }
   .apple-emoji-beer {
     height: 66px;
@@ -35,6 +37,9 @@ nav {
     font-size: 50px;
     letter-spacing: 0;
     line-height: 66px;
+    &:hover {
+        text-decoration: none;
+    }
   }
 }
 </style>
