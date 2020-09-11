@@ -19,7 +19,7 @@ export default {
   justify-content: space-between;
 }
 nav {
-  box-shadow: 0px 1px 1px #dcdcdc;
+  box-shadow: 0px 1px 1px #808080;
   .navbar-brand a {
     color: #000000;
     font-family: "Druk Cond";
@@ -28,6 +28,7 @@ nav {
     &:hover {
         text-decoration: none;
     }
+    font-family: "Druk-Cond-Super";
   }
   .apple-emoji-beer {
     height: 66px;
