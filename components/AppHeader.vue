@@ -20,13 +20,15 @@ export default {
 }
 nav {
   border-bottom: 1px solid lightgray;
+  z-index: 1000;
+  background-color: #fff;
   .navbar-brand a {
     color: #000000;
     font-family: "Druk Cond";
     font-size: 80px;
     letter-spacing: 0;
     &:hover {
-        text-decoration: none;
+      text-decoration: none;
     }
     font-family: "Druk-Cond-Super";
   }
@@ -39,7 +41,7 @@ nav {
     letter-spacing: 0;
     line-height: 66px;
     &:hover {
-        text-decoration: none;
+      text-decoration: none;
     }
   }
 }

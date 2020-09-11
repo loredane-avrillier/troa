@@ -10,7 +10,19 @@
               <p>{{ beer.tagline }}</p>
               <p>{{ beer.first_brewed }}</p>
               <div>
-                <button class="btn-see-more" type="button">SEE MORE</button>
+                <!-- <button class="btn-see-more" type="button">SEE MORE</button> -->
+                <n-link :to="`/beers/${beer.id}`">SEE MORE</n-link>
+
+              <!--   <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
+                <!--      <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
+                  <div class="px-3 py-2">
+                    <p>
+                      Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+                      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    </p>
+                    <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
+                  </div>
+                </b-sidebar>-->
               </div>
             </div>
             <!-- Pagination à la fin du BEERS jaune en bg ? -->
@@ -27,13 +39,8 @@
 </template>
 
 <script>
-import AppHeader from "../components/AppHeader.vue";
-import AppFooter from "../components/AppFooter.vue";
 export default {
-  components: {
-    AppHeader,
-    AppFooter,
-  },
+
   async asyncData({ $axios, params, query, error }) {
     let beers = await $axios.$get("https://api.punkapi.com/v2/beers");
     return { beers };
@@ -146,4 +153,11 @@ export default {
 }
 /*  line-height: 1157px;
   height: 1131px; */
+/*   .b-sidebar-outer {
+    z-index: 1;
+  }
+  .b-sidebar {
+    top: 9em;
+    width: 100%;
+  } */
 </style>
