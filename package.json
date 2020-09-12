@@ -12,6 +12,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
+    "flat": "^5.0.2",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {
