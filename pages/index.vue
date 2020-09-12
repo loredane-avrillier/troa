@@ -1,6 +1,5 @@
 <template>
   <div>
-    <app-header></app-header>
     <div class="container">
       <div class="beers">
         <ul v-if="beers">
@@ -13,7 +12,7 @@
                 <!-- <button class="btn-see-more" type="button">SEE MORE</button> -->
                 <n-link :to="`/beers/${beer.id}`">SEE MORE</n-link>
 
-              <!--   <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
+                <!--   <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
                 <!--      <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
                   <div class="px-3 py-2">
                     <p>
@@ -34,13 +33,11 @@
 
       <!-- Découper en 2 composants list + modal au click bouteille passe id et infos au modal component -->
     </div>
-    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 export default {
-
   async asyncData({ $axios, params, query, error }) {
     let beers = await $axios.$get("https://api.punkapi.com/v2/beers");
     return { beers };
