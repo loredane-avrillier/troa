@@ -1,8 +1,10 @@
 <template>
   <div>
     <ul class="d-flex list-unstyled justify-content-between p-1">
-      <li>CHEERS</li>
-      <li>Punk Api</li>
+      <li>
+        <b>CHEERS</b>
+      </li>
+      <li>PUNK API/V2</li>
     </ul>
   </div>
 </template>
@@ -13,7 +15,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 ul {
-  font-family: "Druk-Wide-Super";
+  font-family: "Helvetica Neue";
+  font-size: 20px;
   border-top: 1px solid lightgray;
   z-index: 1000;
   background-color: #fff;

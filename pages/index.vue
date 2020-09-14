@@ -9,8 +9,8 @@
               <p>{{ beer.tagline }}</p>
               <p>{{ beer.first_brewed }}</p>
               <div>
-                <!-- <button class="btn-see-more" type="button">SEE MORE</button> -->
-                <n-link :to="`/beers/${beer.id}`">SEE MORE</n-link>
+                <!-- <button class="see-more-link" type="button">SEE MORE</button> -->
+                <n-link class="see-more-link" :to="`/beers/${beer.id}`">SEE MORE</n-link>
 
                 <!--   <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
                 <!--      <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
@@ -38,11 +38,21 @@
 
 <script>
 export default {
+  
+   transition(to, from) {
+    console.log('transition called');
+    if (!from) {
+      return 'slide-left'
+    }
+    if(from.path == '/') {
+      return 'slide-left';
+    }
+      return '';
+  }, 
   async asyncData({ $axios, params, query, error }) {
     let beers = await $axios.$get("https://api.punkapi.com/v2/beers");
     return { beers };
   },
-  methods: {},
 };
 </script>
 
@@ -86,12 +96,15 @@ export default {
         line-height: 64px;
         font-family: "Druk-Cond-Super";
       }
-      .btn-see-more {
+      .see-more-link {
         border: 0;
         background-color: #000000;
         color: #ffffff;
         font-weight: bold;
         padding: 0.75em 2em;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
   }
@@ -148,6 +161,18 @@ export default {
     }
   }
 }
+.slide-left-enter-active,
+.slide-left-leave-active {
+    transition: 0.3s;
+
+}
+.slide-left-enter {
+    transform: translate(100%, 0);
+}
+.slide-left-leave-to {
+    transform: translate(-100%, 0);
+  }
+
 /*  line-height: 1157px;
   height: 1131px; */
 /*   .b-sidebar-outer {
