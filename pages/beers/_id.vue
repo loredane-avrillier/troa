@@ -1,15 +1,22 @@
 <template>
   <div id="beer_details">
+    <!-- Layout is divided in 2 : left + right -->
+    <!-- Left side -->
     <div class="side_page left_side">
+      <!-- Beer name bg + img-->
       <div class="bg_name">{{ beer.name }}</div>
       <img :src="beer.image_url" :alt="beer.name" />
     </div>
+    <!-- Right Side -->
     <div class="side_page right_side">
+      <!-- HomePage Link + icon-->
       <n-link class="close_page" to="/">
         <icon-base width="39" height="38" viewBox="0 0 512.001 512.001" icon-name="close">
           <icon-close />
         </icon-base>
       </n-link>
+      <!-- end link -->
+      <!-- List of beer details -->
       <h1>{{ beer.name }}</h1>
       <p class="description">{{ beer.description }}</p>
       <div>
@@ -23,15 +30,25 @@
       </div>
       <div>
         <h2>Ingrédients</h2>
-        <div class="specifications">
-          <span>
-            <b>MALT</b>
-          </span>
-        </div>
-        <div class="specifications">
-          <span>
-            <b>YEAST</b>
-          </span>
+        <div class="specifications ingredients">
+          <div
+            class="ingredients_name_group"
+            v-for="(value, name) in beer.ingredients"
+            :key="'ingredients-' + name"
+          >
+            <span class="ingredients-name">
+              <b>{{ name }}</b>
+            </span>
+            <div class="ingredients_details">
+              <template v-if="Array.isArray(value)">
+                <span
+                  v-for="(ingredient, ingredient_index) in value"
+                  :key="'ingredient-'  + ingredient_index"
+                >{{ingredient.name}}</span>
+              </template>
+              <template v-else>{{value}}</template>
+            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -43,48 +60,37 @@
           >{{ food_pairing_detail }}</span>
         </div>
       </div>
+      <!-- end list details -->
     </div>
-    <!-- 
-    <br> INGREDIENTS <br>
-    <div
-      v-for="(ingredient_detail, ingredient_detail_index) in beer.ingredients"
-      :key="'ingredient_detail' + ingredient_detail_index"
-    >
-    {{ingredient_detail_index}} {{ ingredient_detail }}
-    
-    </div>-->
+    <!-- end right side -->
   </div>
 </template>
 <script>
+/* icons */
 import IconBase from "../../components/IconBase.vue";
 import IconClose from "../../components/icons/IconClose.vue";
-var flatten = require("flat");
+
 export default {
   components: {
     IconBase,
     IconClose,
   },
+  /* API call via Axios
+    return object beer 
+  */
   async asyncData({ $axios, params }) {
     let response = await $axios.get(
       `https://api.punkapi.com/v2/beers/${params.id}`
     );
     let newResponse = response.data[0];
-    /*    var result = Object.entries(newResponse.ingredients);
- 
-   console.log(result);
-   var array = Object.keys(newResponse.ingredients)
-    .map(function(key) {
-        return newResponse.ingredients[key];
-    });
 
-console.log(array);  */
-    console.log(newResponse);
     return { beer: newResponse };
   },
 };
 </script>
 <style lang="scss">
 #beer_details {
+  /* default styles */
   display: flex;
   .side_page {
     flex-basis: 50%;
@@ -92,6 +98,7 @@ console.log(array);  */
     overflow: hidden;
     padding: 4em 0;
   }
+  /* Left side of the page */
   .left_side {
     text-align: center;
   }
@@ -100,7 +107,7 @@ console.log(array);  */
     position: absolute;
     z-index: -1;
     left: 0;
-    bottom: 20%;
+    top: 20%;
     color: #ffce00;
     font-family: "Druk-Cond-Super";
     font-size: 400px;
@@ -111,6 +118,7 @@ console.log(array);  */
     width: 718px;
     line-height: 308px;
   }
+  /* Right Side of the page */
   .right_side {
     padding-left: 8em;
     padding-right: 8em;
@@ -153,13 +161,32 @@ console.log(array);  */
     .specifications:last-child {
       border-bottom: 1px solid #d8d8d8;
     }
-    .food_pairing {
+    .food_pairing,
+    .ingredients {
       flex-direction: column;
-      span {
-        margin: 0.5em 0;
-      }
+    }
+    .food_pairing span {
+      margin: 0.5em 0;
     }
   }
+  .ingredients-name {
+    text-transform: uppercase;
+  }
+  .ingredients_name_group {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 0;
+  }
+  .ingredients_details {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 22px;
+  }
+  /* Icon close */
   .close_page {
     position: absolute;
     top: 2%;
@@ -173,4 +200,18 @@ console.log(array);  */
     }
   }
 }
+/* media queries ipad mobile version */
+@media (max-width: 768px) {
+  #beer_details {
+    flex-flow: column-reverse;
+     .right_side {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+    .close_page {
+      top: 8px;
+    }
+  }
+ }
+
 </style>

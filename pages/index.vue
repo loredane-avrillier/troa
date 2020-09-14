@@ -2,6 +2,7 @@
   <div>
     <div class="container">
       <div class="beers">
+        <!-- Beers list -->
         <ul v-if="beers">
           <li v-for="beer of beers" :key="beer.id">
             <div class="beer-details">
@@ -9,46 +10,34 @@
               <p>{{ beer.tagline }}</p>
               <p>{{ beer.first_brewed }}</p>
               <div>
-                <!-- <button class="see-more-link" type="button">SEE MORE</button> -->
                 <n-link class="see-more-link" :to="`/beers/${beer.id}`">SEE MORE</n-link>
-
-                <!--   <b-button v-b-toggle.sidebar-right>Toggle Sidebar</b-button> -->
-                <!--      <b-sidebar id="sidebar-right" title="Sidebar" right shadow>
-                  <div class="px-3 py-2">
-                    <p>
-                      Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-                      in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-                    </p>
-                    <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
-                  </div>
-                </b-sidebar>-->
               </div>
             </div>
             <!-- Pagination à la fin du BEERS jaune en bg ? -->
-
             <img :src="beer.image_url" :alt="beer.name" />
           </li>
         </ul>
+        <!-- End beers list -->
       </div>
-
-      <!-- Découper en 2 composants list + modal au click bouteille passe id et infos au modal component -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  
-   transition(to, from) {
-    console.log('transition called');
+  /* function transition on index page */
+  transition(to, from) {
     if (!from) {
-      return 'slide-left'
+      return "slide-left";
     }
-    if(from.path == '/') {
-      return 'slide-left';
+    if (from.path == "/") {
+      return "slide-left";
     }
-      return '';
-  }, 
+    return "";
+  },
+  /* API call via Axios 
+     return object beers
+  */
   async asyncData({ $axios, params, query, error }) {
     let beers = await $axios.$get("https://api.punkapi.com/v2/beers");
     return { beers };
@@ -57,7 +46,9 @@ export default {
 </script>
 
 <style lang="scss">
+/* SCSS */
 .beers {
+  /* position relative helps to fix bg yellow text */
   position: relative;
   overflow: hidden;
 
@@ -65,6 +56,7 @@ export default {
     max-height: 700px;
     max-width: 180px;
   }
+  /* General settings on the beer list */
   ul {
     list-style: none;
     padding: 0;
@@ -108,6 +100,7 @@ export default {
       }
     }
   }
+  /* Get reversed style for the asymetrical aspect */
   ul li:nth-child(even) {
     .beer-details {
       padding-left: 3em;
@@ -122,6 +115,7 @@ export default {
     }
   }
 }
+/* Bg yellow text */
 .beers::after {
   content: "BEERS";
   position: absolute;
@@ -137,6 +131,8 @@ export default {
   letter-spacing: 0;
   max-width: 100%;
 }
+/* Quick responsive set up for the index page */
+/* Je ne savais pas s'il fallait le faire j'ai tapé quelques lignes histoire que ça fasse propre*/
 @media (max-width: 768px) {
   .beers::after {
     display: none;
@@ -161,25 +157,15 @@ export default {
     }
   }
 }
+/* Transition page styles */
 .slide-left-enter-active,
 .slide-left-leave-active {
-    transition: 0.3s;
-
+  transition: 0.3s;
 }
 .slide-left-enter {
-    transform: translate(100%, 0);
+  transform: translate(100%, 0);
 }
 .slide-left-leave-to {
-    transform: translate(-100%, 0);
-  }
-
-/*  line-height: 1157px;
-  height: 1131px; */
-/*   .b-sidebar-outer {
-    z-index: 1;
-  }
-  .b-sidebar {
-    top: 9em;
-    width: 100%;
-  } */
+  transform: translate(-100%, 0);
+}
 </style>
