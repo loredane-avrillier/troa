@@ -5,7 +5,10 @@
     <div class="side_page left_side">
       <!-- Beer name bg + img-->
       <div class="bg_name">{{ beer.name }}</div>
-      <img :src="beer.image_url" :alt="beer.name" />
+      <div>
+         <img :src="beer.image_url" :alt="beer.name" />
+      </div>
+     
     </div>
     <!-- Right Side -->
     <div class="side_page right_side">
@@ -103,20 +106,24 @@ export default {
     text-align: center;
   }
   .bg_name {
-    font-size: 80px;
     position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: -1;
     left: 0;
-    top: 20%;
     color: #ffce00;
     font-family: "Druk-Cond-Super";
     font-size: 400px;
     letter-spacing: 0;
     text-transform: uppercase;
     text-align: center;
-    height: 616px;
+    height: 100%;
     width: 718px;
     line-height: 308px;
+    top: 0;
+    bottom: 0;
+    
   }
   /* Right Side of the page */
   .right_side {
