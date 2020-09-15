@@ -33,7 +33,7 @@ export default {
     if (from.path == "/") {
       return "slide-left";
     }
-    return "";
+    return "slide-right";
   },
   /* API call via Axios 
      return object beers
@@ -158,6 +158,7 @@ export default {
   }
 }
 /* Transition page styles */
+/* slide-left */
 .slide-left-enter-active,
 .slide-left-leave-active {
   transition: 0.3s;
@@ -167,5 +168,18 @@ export default {
 }
 .slide-left-leave-to {
   transform: translate(-100%, 0);
+}
+
+
+/* slide-right */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: 0.3s;
+}
+.slide-right-enter {
+  transform: translate(-100%, 0);
+}
+.slide-right-leave-to {
+  transform: translate(100%, 0);
 }
 </style>
